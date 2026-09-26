@@ -14,135 +14,137 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-st.title("🌍 Welcome to my Travel Assistant!!")
+st.set_page_config(page_title="AI Travel Assistant", page_icon="🌍", layout="wide")
 
-# 1. CSS Styles adding the custom orbit keyframe loop
 st.markdown(
     """
     <style>
-    /* Card design layout */
-    .travel-card {
-        background: linear-gradient(135deg, #092027 0%, #153c44 50%, #20535d 100%);
-        padding: 40px 20px;
-        border-radius: 12px;
-        text-align: center;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        margin-bottom: 25px;
+    .stApp {
+        background-color: #0d1117;
     }
-    
-    /* Dedicated relative container for the animating icons */
-    .animation-container {
-        position: relative;
-        width: 100px;
-        height: 100px;
-        margin: 0 auto 20px auto;
+    .header-row {
         display: flex;
-        justify-content: center;
         align-items: center;
+        gap: 10px;
+        padding: 10px 0 20px 0;
     }
-
-    /* Fixed centerpiece globe */
-    .static-globe {
-        font-size: 3rem;
-        z-index: 1;
+    .header-row .globe {
+        font-size: 28px;
     }
-
-    /* Floating airplane orbit wrapper */
-    .orbiting-plane-wrapper {
+    .header-row .title {
+        color: white;
+        font-size: 28px;
+        font-weight: 700;
+    }
+    .header-row .link-icon {
+        color: #8b949e;
+        font-size: 18px;
+        margin-left: 4px;
+    }
+    .hero-card {
+        background: linear-gradient(135deg, #17423f 0%, #0f2b2c 100%);
+        border-radius: 16px;
+        padding: 70px 20px;
+        text-align: center;
+    }
+    .orbit-wrap {
+        position: relative;
+        width: 130px;
+        height: 130px;
+        margin: 0 auto 20px auto;
+    }
+    .globe-icon {
         position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 48px;
+    }
+    .orbit {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
-        z-index: 2;
-        animation: spin-orbit 6s linear infinite; /* Adjust '6s' to speed up or slow down */
+        animation: spin 5s linear infinite;
     }
-
-    /* The individual plane position offset inside the spinning wrapper */
-    .moving-plane {
+    .plane-icon {
         position: absolute;
-        top: 0px;
+        top: -6px;
         left: 50%;
-        transform: translateX(-50%) rotate(45deg); /* Flips the nose to face the flight angle */
-        font-size: 1.8rem;
+        transform: translateX(-50%);
+        font-size: 26px;
+        animation: counter-spin 5s linear infinite;
     }
-
-    /* Core keyframe to rotate the airplane container seamlessly */
-    @keyframes spin-orbit {
-        0% {
-            transform: rotate(0deg);
-        }
-        100% {
-            transform: rotate(360deg);
-        }
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
     }
-    
-    /* Layout text stylings */
-    .travel-title {
-        color: #d1ff84 !important;
-        font-size: 2.2rem;
-        font-weight: 700;
+    @keyframes counter-spin {
+        from { transform: translateX(-50%) rotate(0deg); }
+        to { transform: translateX(-50%) rotate(-360deg); }
+    }
+    .hero-title {
+        color: #b7f26a;
+        font-size: 40px;
+        font-weight: 800;
         margin-bottom: 15px;
     }
-    
-    .travel-desc {
-        color: #a0b2b6;
-        font-size: 1.05rem;
-        font-weight: 300;
-        max-width: 600px;
-        margin: 0 auto 25px auto;
-        line-height: 1.5;
+    .hero-subtitle {
+        color: #9fb3ae;
+        font-size: 18px;
+        margin-bottom: 35px;
     }
-
     div.stButton {
         display: flex;
         justify-content: center;
-        align-items: center;
     }
-    
     div.stButton > button {
-        background-color: rgba(255, 255, 255, 0.08) !important;
-        color: #c9d1d9 !important;
-        border: 1px solid rgba(255, 255, 255, 0.15) !important;
-        border-radius: 30px !important;
-        padding: 8px 24px !important;
-        font-size: 0.85rem !important;
-        transition: all 0.2s ease-in-out;
+        background-color: rgba(255, 255, 255, 0.05);
+        color: #e6edf3;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 30px;
+        padding: 12px 28px;
+        font-size: 16px;
+        font-weight: 500;
+        margin: 0 auto;
+        display: block;
     }
-    
     div.stButton > button:hover {
-        background-color: rgba(255, 255, 255, 0.15) !important;
-        border-color: rgba(255, 255, 255, 0.3) !important;
-        transform: scale(1.02);
+        background-color: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.3);
+        color: #e6edf3;
     }
     </style>
-    """,
-    unsafe_allow_html=True
-)
 
-# 2. Updated HTML Card with Nested Animation Nodes
-st.markdown(
-    """
-    <div class="travel-card">
-        <!-- Floating Elements Box -->
-        <div class="animation-container">
-            <div class="static-globe">🌍</div>
-            <div class="orbiting-plane-wrapper">
-                <div class="moving-plane">🛫</div>
-            </div>
+    <div class="header-row">
+        <span class="globe">🌍</span>
+        <span class="title">Welcome to my Travel Assistant</span>
+        <span class="link-icon">🔗</span>
+    </div>
+
+    <div class="hero-card">
+        <div class="orbit-wrap">
+            <div class="globe-icon">🌍</div>
+            <div class="orbit"><div class="plane-icon">✈️</div></div>
         </div>
-        
-        <div class="travel-title">AI Travel Assistant</div>
-        <div class="travel-desc">
-            Your intelligent companion for seamless journeys, itineraries, and local secrets.
-        </div>
+        <div class="hero-title">AI Travel Assistant</div>
+        <div class="hero-subtitle">Your intelligent companion for seamless journeys, itineraries, and local secrets.</div>
     </div>
     """,
-    unsafe_allow_html=True
+    unsafe_allow_html=True,
 )
 
-# 3. Interactive badge button
-if st.button("🚀 Ready for takeoff? • Let's explore the world!", key="takeoff_badge"):
-    st.balloons()
+# Centered button, placed to visually sit inside the hero card
+st.markdown("<div style='margin-top:-55px;'></div>", unsafe_allow_html=True)
 
+# Use columns as a bullet-proof centering fallback (works across all
+# Streamlit versions, regardless of internal CSS class/testid names).
+left, center, right = st.columns([1, 2, 1])
+with center:
+    if st.button("🚀 Ready for takeoff?  •  Let's explore the world!", use_container_width=True):
+        st.balloons()
+        st.toast("Let's plan your trip! ✈️")
 
 location = st.text_input(label=r"$\textsf{\Large Where do you wish to go this time?}$")
 days_nr = st.number_input(label=r"$\textsf{\Large How many days of trip are you planning?}$", min_value=1, max_value=30)
