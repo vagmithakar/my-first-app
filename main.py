@@ -83,7 +83,7 @@ st.markdown(
 
 
 
-location = st.text_input("Where do you wanna go chipmunk?")
+location = st.text_input(label=r"$\textsf{\Large Where do you wanna go chipmunk?}$")
 days_nr = st.number_input("How many days of trip", min_value=1, max_value=30)
 
 budget = st.selectbox("Select Budget", ["Luxury", "Moderate", "Budgeted"])
