@@ -74,7 +74,7 @@ st.markdown(
             Your intelligent companion for seamless journeys, itineraries, and local secrets.
         </p>
         <div class="travel-badge">
-            🚀 Ready for takeoff • Let's explore the world
+            🚀 Ready for takeoff? • Let's explore the world!
         </div>
     </div>
     """,
@@ -83,14 +83,14 @@ st.markdown(
 
 
 
-location = st.text_input(label=r"$\textsf{\Large Where do you wanna go chipmunk?}$")
-days_nr = st.number_input("How many days of trip", min_value=1, max_value=30)
-
-budget = st.selectbox("Select Budget", ["Luxury", "Moderate", "Budgeted"])
-travel_type = st.radio("Who are you travelling with", ["Family","Solo", "Friends"])
+location = st.text_input(label=r"$\textsf{\Large Where do you wish to go this time?}$")
+days_nr = st.number_input(label=r"$\textsf{\Large How many days of trip are you planning?}$", min_value=1, max_value=30)
+criterias = st.checkbox(r"$\textsf{\Large What would you like to experience throughout your trip?}$",["Adventure", "Spirituality", "Nature's Bliss", "Fun", "Pilgrimage"])
+budget = st.selectbox(r"$\textsf{\Large What is your travel budget?}$", ["Luxury", "Moderate", "Budgeted"])
+travel_type = st.radio(r"$\textsf{\Large Who are you travelling with?}$", ["Family", "Solo", "Friends"])
 
 prompt = f"""You are a Travel Planner, User is saying he/she wants to 
-go to {location} and for {days_nr} days , he is on a budget of type {budget}
+go to {location} and for {days_nr} days , they want to experience {criterias} criterias , they are on a budget of type {budget}
 Travel Type is :  {travel_type}
 Plan a tripo and share answer in bullet format"""
 
