@@ -15,73 +15,133 @@ st.set_page_config(
 )
 
 st.title("🌍 Welcome to my Travel Assistant!!")
+
+# 1. CSS Styles adding the custom orbit keyframe loop
 st.markdown(
     """
     <style>
-    @keyframes float {
-        0% { transform: translateY(0px) rotate(0deg); }
-        50% { transform: translateY(-8px) rotate(3deg); }
-        100% { transform: translateY(0px) rotate(0deg); }
-    }
-    @keyframes pulseGlow {
-        0% { opacity: 0.6; }
-        50% { opacity: 1; filter: drop-shadow(0 0 10px rgba(255,255,255,0.6)); }
-        100% { opacity: 0.6; }
-    }
-    .travel-hero {
-        background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
-        padding: 2.5rem 2rem;
-        border-radius: 18px;
-        color: white;
+    /* Card design layout */
+    .travel-card {
+        background: linear-gradient(135deg, #092027 0%, #153c44 50%, #20535d 100%);
+        padding: 40px 20px;
+        border-radius: 12px;
         text-align: center;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        margin-bottom: 2rem;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        margin-bottom: 25px;
     }
-    .travel-icon {
-        display: inline-block;
-        animation: float 4s ease-in-out infinite;
-        font-size: 3.5rem;
-        margin-bottom: 5px;
+    
+    /* Dedicated relative container for the animating icons */
+    .animation-container {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 20px auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
+
+    /* Fixed centerpiece globe */
+    .static-globe {
+        font-size: 3rem;
+        z-index: 1;
+    }
+
+    /* Floating airplane orbit wrapper */
+    .orbiting-plane-wrapper {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        animation: spin-orbit 6s linear infinite; /* Adjust '6s' to speed up or slow down */
+    }
+
+    /* The individual plane position offset inside the spinning wrapper */
+    .moving-plane {
+        position: absolute;
+        top: 0px;
+        left: 50%;
+        transform: translateX(-50%) rotate(45deg); /* Flips the nose to face the flight angle */
+        font-size: 1.8rem;
+    }
+
+    /* Core keyframe to rotate the airplane container seamlessly */
+    @keyframes spin-orbit {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    
+    /* Layout text stylings */
     .travel-title {
-        font-size: 3rem; 
-        margin: 0; 
-        font-weight: 800; 
-        letter-spacing: 1px;
-        font-family: 'Inter', sans-serif;
-        background: linear-gradient(to right, #ffffff, #a8ff78);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        color: #d1ff84 !important;
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 15px;
     }
-    .travel-badge {
-        margin-top: 15px;
-        display: inline-block;
-        background: rgba(255, 255, 255, 0.12);
-        padding: 6px 18px;
-        border-radius: 20px;
-        font-size: 0.9rem;
-        backdrop-filter: blur(8px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        animation: pulseGlow 3s infinite;
+    
+    .travel-desc {
+        color: #a0b2b6;
+        font-size: 1.05rem;
+        font-weight: 300;
+        max-width: 600px;
+        margin: 0 auto 25px auto;
+        line-height: 1.5;
+    }
+
+    div.stButton {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    div.stButton > button {
+        background-color: rgba(255, 255, 255, 0.08) !important;
+        color: #c9d1d9 !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        border-radius: 30px !important;
+        padding: 8px 24px !important;
+        font-size: 0.85rem !important;
+        transition: all 0.2s ease-in-out;
+    }
+    
+    div.stButton > button:hover {
+        background-color: rgba(255, 255, 255, 0.15) !important;
+        border-color: rgba(255, 255, 255, 0.3) !important;
+        transform: scale(1.02);
     }
     </style>
+    """,
+    unsafe_allow_html=True
+)
 
-
-    <div class="travel-hero">
-        <div class="travel-icon">✈️🌍</div>
-        <h1 class="travel-title">AI Travel Assistant</h1>
-        <p style="font-size: 1.2rem; margin-top: 12px; color: #d0d7de; font-weight: 300;">
+# 2. Updated HTML Card with Nested Animation Nodes
+st.markdown(
+    """
+    <div class="travel-card">
+        <!-- Floating Elements Box -->
+        <div class="animation-container">
+            <div class="static-globe">🌍</div>
+            <div class="orbiting-plane-wrapper">
+                <div class="moving-plane">🛫</div>
+            </div>
+        </div>
+        
+        <div class="travel-title">AI Travel Assistant</div>
+        <div class="travel-desc">
             Your intelligent companion for seamless journeys, itineraries, and local secrets.
-        </p>
+        </div>
     </div>
     """,
     unsafe_allow_html=True
-    
-    # 3. Use the button to trigger balloons on click
+)
+
+# 3. Interactive badge button
 if st.button("🚀 Ready for takeoff? • Let's explore the world!", key="takeoff_badge"):
     st.balloons()
-)
 
 
 location = st.text_input(label=r"$\textsf{\Large Where do you wish to go this time?}$")
