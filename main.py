@@ -14,7 +14,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-st.title("🌍 Travel Assistant")
+st.title("🌍 Welcome to my Travel Assistant!!")
 st.markdown(
     """
     <style>
@@ -77,13 +77,11 @@ st.markdown(
     </div>
     """,
     unsafe_allow_html=True
-)
-
-# 3. Use the button to trigger balloons on click
+    
+    # 3. Use the button to trigger balloons on click
 if st.button("🚀 Ready for takeoff? • Let's explore the world!", key="takeoff_badge"):
     st.balloons()
-
-
+)
 
 
 location = st.text_input(label=r"$\textsf{\Large Where do you wish to go this time?}$")
