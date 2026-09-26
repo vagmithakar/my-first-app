@@ -67,25 +67,32 @@ st.markdown(
     }
     </style>
 
+
     <div class="travel-hero">
         <div class="travel-icon">✈️🌍</div>
         <h1 class="travel-title">AI Travel Assistant</h1>
         <p style="font-size: 1.2rem; margin-top: 12px; color: #d0d7de; font-weight: 300;">
             Your intelligent companion for seamless journeys, itineraries, and local secrets.
         </p>
-        <div class="travel-badge">
-            🚀 Ready for takeoff? • Let's explore the world!
-        </div>
     </div>
     """,
-    unsafe_allow_html=True,
+    unsafe_allow_html=True
 )
+
+# 3. Use the button to trigger balloons on click
+if st.button("🚀 Ready for takeoff? • Let's explore the world!", key="takeoff_badge"):
+    st.balloons()
+
 
 
 
 location = st.text_input(label=r"$\textsf{\Large Where do you wish to go this time?}$")
 days_nr = st.number_input(label=r"$\textsf{\Large How many days of trip are you planning?}$", min_value=1, max_value=30)
-criterias = st.checkbox(r"$\textsf{\Large What would you like to experience throughout your trip?}$",["Adventure", "Spirituality", "Nature's Bliss", "Fun", "Pilgrimage"])
+criterias = st.multiselect(
+    label=r"$\textsf{\Large What would you like to experience throughout your trip?}$",
+    options=["Adventure", "Spirituality", "Nature's Bliss", "Fun", "Pilgrimage"],
+    default=None
+)
 budget = st.selectbox(r"$\textsf{\Large What is your travel budget?}$", ["Luxury", "Moderate", "Budgeted"])
 travel_type = st.radio(r"$\textsf{\Large Who are you travelling with?}$", ["Family", "Solo", "Friends"])
 
