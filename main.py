@@ -7,7 +7,14 @@ load_dotenv()
 
 client = genai.Client()
 
-#st.title("🌍 Travel Assistant")
+st.set_page_config(
+    page_title="My Cool App",
+    page_icon="🚀",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+st.title("🌍 Travel Assistant")
 st.markdown(
     """
     <style>
@@ -74,7 +81,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.caption("Tumhara personal planner")
+
 
 location = st.text_input("Where do you wanna go chipmunk?")
 days_nr = st.number_input("How many days of trip", min_value=1, max_value=30)
@@ -96,5 +103,5 @@ if st.button("Plan Trip"):
     with st.spinner("Wait for it...", show_time=True):
         time.sleep(5)
 
-    st.success("Vola !! here are some fab suiggestions")
+    st.success("Voila !! Here are some fab suggestions")
     st.write(interaction.output_text)
